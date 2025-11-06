@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features del Sito - IIS Meucci-Mattei</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #1a8c73;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .feature-section {
+            margin-bottom: 40px;
+        }
+        
+        .feature-section h2 {
+            color: #e91e63;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e91e63;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h3 {
+            color: #1a8c73;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tech-stack {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .tech-stack h3 {
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tech-tag {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            color: #1a8c73;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 20px;
+            border: none;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #1a8c73;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1a8c73;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Sito Web IIS Meucci-Mattei</h1>
+        <p class="subtitle">Sede Decimomannu - Presentazione Features e Caratteristiche</p>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Sezioni Complete</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">139</div>
+                <div class="stat-label">Immagini Estratte</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Responsive</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Indirizzi di Studio</div>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2>✨ Caratteristiche Principali</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="icon">🎨</span>
+                    <h3>Design Fedele</h3>
+                    <p>Mantiene l'identità visiva delle slide originali con palette colori istituzionale e elementi grafici caratteristici</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📱</span>
+                    <h3>Fully Responsive</h3>
+                    <p>Perfettamente ottimizzato per desktop, tablet e smartphone con design mobile-first</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚡</span>
+                    <h3>Animazioni Fluide</h3>
+                    <p>Scroll animations, parallax effect, hover 3D, transizioni smooth per un'esperienza coinvolgente</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🎯</span>
+                    <h3>Navigazione Intuitiva</h3>
+                    <p>Menu sticky, smooth scroll, active links, hamburger menu animato per mobile</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🚀</span>
+                    <h3>Performance Ottimizzate</h3>
+                    <p>Lazy loading immagini, CSS ottimizzato, animazioni hardware-accelerated</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">♿</span>
+                    <h3>Accessibile</h3>
+                    <p>Struttura semantica HTML5, contrasti WCAG, navigazione keyboard-friendly</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2>📚 Contenuti Completi</h2>
+            <ul class="checklist">
+                <li>Hero section con presentazione e call-to-action</li>
+                <li>Informazioni trasporti (Trenitalia, ARST, CTM)</li>
+                <li>Orari scolastici completi</li>
+                <li>5 Indirizzi di studio dettagliati (AFM, SIA, Turismo, CAT Archeo Design, SSAS)</li>
+                <li>Sezione laboratori con metodologie operative</li>
+                <li>Progetti: PCTO, Erasmus+, Certificazioni linguistiche</li>
+                <li>Corsi serali (CAT e AFM)</li>
+                <li>Date Open Day e sistema prenotazioni</li>
+                <li>Informazioni iscrizioni 2026/2027</li>
+                <li>Contatti completi e social media</li>
+            </ul>
+        </div>
+        
+        <div class="tech-stack">
+            <h3>🛠️ Tecnologie Utilizzate</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript ES6+</span>
+                <span class="tech-tag">Responsive Design</span>
+                <span class="tech-tag">CSS Grid & Flexbox</span>
+                <span class="tech-tag">CSS Animations</span>
+                <span class="tech-tag">Intersection Observer API</span>
+                <span class="tech-tag">Smooth Scroll</span>
+                <span class="tech-tag">Google Fonts</span>
+                <span class="tech-tag">Mobile First</span>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2>🎁 Features Extra</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="icon">🌊</span>
+                    <h3>Parallax Scrolling</h3>
+                    <p>Effetti parallasse sui cerchi decorativi della hero section</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">💫</span>
+                    <h3>Hover Effects 3D</h3>
+                    <p>Card degli indirizzi con effetto 3D al passaggio del mouse</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📊</span>
+                    <h3>Progress Bar</h3>
+                    <p>Barra di progresso scroll multicolore sempre visibile</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⬆️</span>
+                    <h3>Back to Top</h3>
+                    <p>Pulsante animato per tornare rapidamente all'inizio</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">💧</span>
+                    <h3>Ripple Effect</h3>
+                    <p>Effetto ripple material design su tutti i bottoni</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⌨️</span>
+                    <h3>Easter Egg</h3>
+                    <p>Konami Code per effetto rainbow (↑↑↓↓←→←→BA)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2>📝 File Forniti</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="icon">🌐</span>
+                    <h3>index.html</h3>
+                    <p>Pagina HTML completa con tutti i contenuti strutturati semanticamente</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🎨</span>
+                    <h3>style.css</h3>
+                    <p>Foglio di stile completo con variabili CSS, responsive breakpoints e animazioni</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚙️</span>
+                    <h3>script.js</h3>
+                    <p>JavaScript per tutte le interazioni, animazioni e funzionalità dinamiche</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🖼️</span>
+                    <h3>images/</h3>
+                    <p>139 immagini estratte dal PDF originale</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📖</span>
+                    <h3>README.md</h3>
+                    <p>Documentazione completa con istruzioni d'uso e pubblicazione</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔧</span>
+                    <h3>GUIDA_PERSONALIZZAZIONE.md</h3>
+                    <p>Guida dettagliata per personalizzare ogni aspetto del sito</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>🚀 Pronto per l'Uso!</h2>
+            <p style="color: white; font-size: 1.2rem; margin-bottom: 30px;">
+                Il sito è completo e pronto per essere pubblicato online o utilizzato localmente
+            </p>
+            <a href="index.html" class="cta-button">Visualizza il Sito</a>
+            <a href="README.md" class="cta-button">Leggi la Documentazione</a>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 15px; text-align: center;">
+            <h3 style="color: #1a8c73; margin-bottom: 15px;">💡 Suggerimenti per l'Utilizzo</h3>
+            <ul class="checklist" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                <li>Sostituisci le immagini con foto di qualità superiore</li>
+                <li>Aggiorna le date degli Open Day</li>
+                <li>Inserisci i link reali dei social media</li>
+                <li>Personalizza i colori nelle variabili CSS</li>
+                <li>Aggiungi Google Analytics per monitorare le visite</li>
+                <li>Testa il sito su diversi dispositivi</li>
+                <li>Ottimizza le immagini per il web (WebP consigliato)</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: center; color: #666;">
+            <p><strong>Creato con ❤️ per l'IIS Meucci-Mattei</strong></p>
+            <p style="font-style: italic; color: #1a8c73; margin-top: 10px;">
+                "Una strada per ogni passione, un indirizzo per ogni attitudine!"
+            </p>
+        </div>
+    </div>
+</body>
+</html>
