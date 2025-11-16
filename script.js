@@ -543,6 +543,122 @@ function animateNumbers() {
     });
 }
 
+// Lightbox Gallery
+function initLightbox() {
+    // Create lightbox element
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = `
+        <div class="lightbox-content">
+            <button class="lightbox-close">×</button>
+            <button class="lightbox-nav lightbox-prev">‹</button>
+            <button class="lightbox-nav lightbox-next">›</button>
+            <img src="" alt="" class="lightbox-img">
+            <div class="lightbox-caption"></div>
+        </div>
+    `;
+    document.body.appendChild(lightbox);
+
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightboxImg = lightbox.querySelector('.lightbox-img');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+
+    let currentIndex = 0;
+    let galleryImages = [];
+
+    // Collect all gallery images
+    galleryItems.forEach((item, index) => {
+        const img = item.querySelector('.gallery-img');
+        const caption = item.querySelector('.gallery-overlay p');
+
+        galleryImages.push({
+            src: img.src,
+            alt: img.alt,
+            caption: caption ? caption.textContent : ''
+        });
+
+        item.addEventListener('click', () => {
+            currentIndex = index;
+            showImage(currentIndex);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function showImage(index) {
+        if (galleryImages[index]) {
+            lightboxImg.src = galleryImages[index].src;
+            lightboxImg.alt = galleryImages[index].alt;
+            lightboxCaption.textContent = galleryImages[index].caption;
+        }
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function showNext() {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        showImage(currentIndex);
+    }
+
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        showImage(currentIndex);
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', showNext);
+    prevBtn.addEventListener('click', showPrev);
+
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+    });
+}
+
+// Gallery Items Animation on Scroll
+function initGalleryAnimations() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 50);
+                galleryObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    galleryItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        galleryObserver.observe(item);
+    });
+}
+
 // Initialize all modern features
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
@@ -553,6 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
     initParallax();
     animateNumbers();
+    initLightbox();
+    initGalleryAnimations();
 
     // Add gradient text to titles
     const titles = document.querySelectorAll('.section-title');
