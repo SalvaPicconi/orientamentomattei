@@ -324,10 +324,21 @@ backToTopButton.addEventListener('mouseleave', () => {
     backToTopButton.style.transform = 'scale(1)';
 });
 
-// Log page load time
+// Loading Screen
 window.addEventListener('load', () => {
     const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
     console.log(`Sito caricato in ${loadTime}ms`);
+
+    // Hide loading screen
+    const loadingScreen = document.querySelector('.loading-screen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
+        }, 800);
+    }
 });
 
 // Easter egg - Konami Code
@@ -357,3 +368,199 @@ document.head.appendChild(rainbowStyle);
 
 console.log('%c🎓 Benvenuto nel sito dell\'IIS Meucci-Mattei! 🎓', 'color: #1a8c73; font-size: 20px; font-weight: bold;');
 console.log('%cUna strada per ogni passione, un indirizzo per ogni attitudine!', 'color: #e91e63; font-size: 14px; font-style: italic;');
+
+// Particle Effect for Hero Background
+function createParticles() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'particles-container';
+    particlesContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+    `;
+
+    // Create floating particles
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            background: ${['#1a8c73', '#e91e63', '#00bcd4', '#8bc34a'][Math.floor(Math.random() * 4)]};
+            border-radius: 50%;
+            opacity: ${Math.random() * 0.5 + 0.2};
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: float ${Math.random() * 10 + 10}s ease-in-out infinite;
+            animation-delay: ${Math.random() * 5}s;
+        `;
+        particlesContainer.appendChild(particle);
+    }
+
+    hero.appendChild(particlesContainer);
+}
+
+// Advanced Scroll Reveal
+function advancedScrollReveal() {
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('revealed');
+                }, index * 100);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    reveals.forEach(reveal => {
+        revealObserver.observe(reveal);
+    });
+}
+
+// Mouse Follow Effect
+function createMouseFollower() {
+    const follower = document.createElement('div');
+    follower.className = 'mouse-follower';
+    follower.style.cssText = `
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(26,140,115,0.4), transparent);
+        pointer-events: none;
+        z-index: 9998;
+        transition: transform 0.2s ease;
+        transform: translate(-50%, -50%);
+    `;
+    document.body.appendChild(follower);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animate() {
+        followerX += (mouseX - followerX) * 0.1;
+        followerY += (mouseY - followerY) * 0.1;
+
+        follower.style.left = followerX + 'px';
+        follower.style.top = followerY + 'px';
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// Cursor Glow on Interactive Elements
+function addCursorGlow() {
+    const interactiveElements = document.querySelectorAll('a, button, .btn, .indirizzo-card, .lab-card');
+
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            element.style.cursor = 'pointer';
+            const follower = document.querySelector('.mouse-follower');
+            if (follower) {
+                follower.style.transform = 'translate(-50%, -50%) scale(2)';
+                follower.style.background = 'radial-gradient(circle, rgba(233,30,99,0.4), transparent)';
+            }
+        });
+
+        element.addEventListener('mouseleave', () => {
+            const follower = document.querySelector('.mouse-follower');
+            if (follower) {
+                follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                follower.style.background = 'radial-gradient(circle, rgba(26,140,115,0.4), transparent)';
+            }
+        });
+    });
+}
+
+// Parallax Images
+function initParallax() {
+    const parallaxElements = document.querySelectorAll('.school-photo, .lab-icon, .trasporto-icon');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+
+        parallaxElements.forEach((element, index) => {
+            const rect = element.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const speed = 0.5 + (index % 3) * 0.2;
+                const yPos = -(rect.top * speed);
+                element.style.transform = `translateY(${yPos * 0.1}px)`;
+            }
+        });
+    });
+}
+
+// Number Counter Animation for Stats
+function animateNumbers() {
+    const numberElements = document.querySelectorAll('.animate-number');
+
+    numberElements.forEach(element => {
+        const finalNumber = parseInt(element.textContent);
+        let currentNumber = 0;
+        const increment = finalNumber / 50;
+
+        const updateNumber = () => {
+            currentNumber += increment;
+            if (currentNumber < finalNumber) {
+                element.textContent = Math.floor(currentNumber);
+                requestAnimationFrame(updateNumber);
+            } else {
+                element.textContent = finalNumber;
+            }
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                updateNumber();
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(element);
+    });
+}
+
+// Initialize all modern features
+document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
+    advancedScrollReveal();
+    createMouseFollower();
+    setTimeout(() => {
+        addCursorGlow();
+    }, 1000);
+    initParallax();
+    animateNumbers();
+
+    // Add gradient text to titles
+    const titles = document.querySelectorAll('.section-title');
+    titles.forEach(title => {
+        const words = title.textContent.split(' ');
+        if (words.length > 2) {
+            const lastWord = words.pop();
+            title.innerHTML = words.join(' ') + ' <span class="gradient-text">' + lastWord + '</span>';
+        }
+    });
+});
